@@ -4,8 +4,6 @@
     const app = express()
 
     app.get('/', function (req, res) {
-        //const { stdout, stderr } =  exec('bash -c ls -l');
-
              exec('git add . && git commit -m "add file" ', (error, stdout, stderr) => {
                  console.log(stdout)
                 if (error) {
@@ -14,9 +12,8 @@
                 }
                 
             }); 
-         
-    
-    res.send('Hello World!')
+        
+    res.send('file added')
     })
 
     app.listen(3000, function () {
