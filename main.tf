@@ -1,33 +1,7 @@
-const { exec } = require("child_process");
-const fs = require("fs");
-const BodyParser = require("body-parser");
-const morgan = require("morgan");
-const express = require("express");
 
-const app = express();
-
-app.get("/", function(req, res) {
-  exec(`touch main.tf`, (error, stdout, stderr) => {
-    fs.writeFile(`main.tf`, "create your content", function(err) {
-      if (err) {
-        return console.log(err);
-      }
-      console.log("The file was saved!");
-    });
-    if (error) {
-      console.error(`exec error: ${error}`);
-      return;
-    }
-  });
-  res.send("file created");
-});
-app.post("/write", function(req, res) {
-  console.log(req.query);
-  const { user, password } = req.query;
-  const content = `
         provider "vsphere" {
-            user           = "${user}"
-            password       = "${password}"
+            user           = "jobran"
+            password       = "kaka"
             vsphere_server = "vc-vstack-002-ctt.tn.cloud-temple.lan"
           
             # If you have a self-signed cert
@@ -121,33 +95,4 @@ app.post("/write", function(req, res) {
           }
           }  
           }          
-          `;
-  fs.writeFile("main.tf", content, function(err) {
-    if (err) {
-      return console.log(err);
-    }
-    console.log("The file was saved!");
-    exec(`git status && git add . && git commit -m "add file"`, (error, stdout, stderr) => {
-        console.log(stdout)
-        if (error) {
-          console.error(`exec error: ${error}`);
-          return;
-        }
-      });
-  });
-
-  res.send("The file was saved!");
-});
-//app setup
-app.use(morgan("combined"));
-// parse application/x-www-form-urlencoded
-app.use(
-  BodyParser.urlencoded({
-    extended: false
-  })
-);
-// parse application/json
-app.use(BodyParser.json());
-app.listen(3000, function() {
-  console.log("Example app listening on port 3000!");
-});
+          
