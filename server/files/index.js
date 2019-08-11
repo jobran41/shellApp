@@ -24,6 +24,7 @@ app.post("/writeFile", function(req, res) {
   console.log(req.query);
   const { user, password } = req.query;
   const content = `
+        jo
         provider "vsphere" {
             user           = "${user}"
             password       = "${password}"
