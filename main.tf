@@ -1,7 +1,7 @@
 
         provider "vsphere" {
-            user           = "jobran"
-            password       = "kaka"
+            user           = "joeeeee"
+            password       = "fedf"
             vsphere_server = "vc-vstack-002-ctt.tn.cloud-temple.lan"
           
             # If you have a self-signed cert

@@ -1,11 +1,24 @@
 const { exec } = require("child_process");
 const fs = require("fs");
 
-const myRoute = (app, jwt) => {
-console.log(app)
 
 
-app.get("/createFile",jwt, function(req, res) {
+const  createFile=(req, res, next) => {
+  exec(`cd .. && touch main.tf`, (error, stdout, stderr) => {
+    fs.writeFile(`../main.tf`, "create your content", function(err) {
+      if (err) {
+        return console.log(err);
+      }
+      console.log("The file was saved!");
+    });
+    if (error) {
+      console.error(`exec error: ${error}`);
+      return;
+    }
+  });
+  res.send("file created");
+}
+/* app.get("/createFile",jwt, function(req, res) {
   exec(`touch main.tf`, (error, stdout, stderr) => {
     fs.writeFile(`main.tf`, "create your content", function(err) {
       if (err) {
@@ -19,12 +32,10 @@ app.get("/createFile",jwt, function(req, res) {
     }
   });
   res.send("file created");
-});
-app.post("/writeFile", function(req, res) {
-  console.log(req.query);
-  const { user, password } = req.query;
+}); */
+const writeFile=(req, res)=> {
+  const { user, password } = req.body;
   const content = `
-        jo
         provider "vsphere" {
             user           = "${user}"
             password       = "${password}"
@@ -122,22 +133,22 @@ app.post("/writeFile", function(req, res) {
           }  
           }          
           `;
-  fs.writeFile("main.tf", content, function(err) {
+  fs.writeFile("../main.tf", content, function(err) {
     if (err) {
       return console.log(err);
     }
     console.log("The file was saved!");
-    exec(`git status && git add . && git commit -m "add file"`, (error, stdout, stderr) => {
+/*     exec(`git status && git add . && git commit -m "add file"`, (error, stdout, stderr) => {
         console.log(stdout)
         if (error) {
           console.error(`exec error: ${error}`);
           return;
         }
-      });
+      }); */
   });
 
   res.send("The file was saved!");
-});
+}
 
-};
-module.exports = myRoute;
+
+module.exports = {createFile,writeFile};

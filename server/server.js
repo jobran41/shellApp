@@ -5,12 +5,10 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const jwt = require('_helpers/jwt');
 const errorHandler = require('_helpers/error-handler');
-//const myRoutesUser = require('./users/users.controller');
-const myRoutesFiles = require('./files/index')
+const myRoute = require('./routes');
 
 
-
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -21,9 +19,7 @@ app.use(cors());
 app.use(errorHandler);
 
 // api routes
-//app.use('/users', require('./users/users.controller'));
-//myRoutesUser(app,jwt())
-myRoutesFiles(app,jwt())
+myRoute(app,jwt())
 
 
 

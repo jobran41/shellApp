@@ -2,23 +2,9 @@
 const router = express.Router();
 const userService = require("./user.service");
 
-const myRoute = (app, jwt) => {
-  // routes
-  // app.get('/', authorize(Role.Admin), getAll); // admin only
-  // app.get('/:id', authorize(), getById);       // all authenticated users
 
-  // routes
-  app.post("/authenticate", authenticate);
-  app.post("/register", register);
-  app.get("/", jwt, getAll);
-  app.get("/current", jwt, getCurrent);
-  app.get("/:id", jwt, getById);
-  app.put("/:id", jwt, update);
-  app.delete("/:id", jwt, _delete);
-};
-module.exports = myRoute;
 
-function authenticate(req, res, next) {
+ const  authenticate=(req, res, next) =>{
   userService
     .authenticate(req.body)
     .then(user =>
@@ -29,44 +15,54 @@ function authenticate(req, res, next) {
     .catch(err => next(err));
 }
 
-function register(req, res, next) {
+ const  register=(req, res, next) =>{
   userService
     .create(req.body)
     .then(() => res.json({}))
     .catch(err => next(err));
 }
 
-function getAll(req, res, next) {
+ const  getAll=(req, res, next)=> {
   userService
     .getAll()
     .then(users => res.json(users))
     .catch(err => next(err));
 }
 
-function getCurrent(req, res, next) {
+ const  getCurrent=(req, res, next) =>{
   userService
     .getById(req.user.sub)
     .then(user => (user ? res.json(user) : res.sendStatus(404)))
     .catch(err => next(err));
 }
 
-function getById(req, res, next) {
+ const  getById=(req, res, next)=> {
   userService
     .getById(req.params.id)
     .then(user => (user ? res.json(user) : res.sendStatus(404)))
     .catch(err => next(err));
 }
 
-function update(req, res, next) {
+ const  update=(req, res, next) =>{
   userService
     .update(req.params.id, req.body)
     .then(() => res.json({}))
     .catch(err => next(err));
 }
 
-function _delete(req, res, next) {
+ const  _delete=(req, res, next)=> {
   userService
     .delete(req.params.id)
     .then(() => res.json({}))
     .catch(err => next(err));
 }
+
+module.exports = {
+  authenticate,
+  getAll,
+  register,
+  getById,
+  getCurrent,
+  update,
+ _delete
+};
