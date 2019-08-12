@@ -49,6 +49,21 @@ const Sidebar = props => {
       icon: <DashboardIcon />
     },
     {
+      title: 'Create Machine',
+      href: '/create-machine',
+      icon: <DashboardIcon />
+    },
+    {
+      title: 'Backup Machine',
+      href: '/backup-machine',
+      icon: <DashboardIcon />
+    },
+    {
+      title: 'Restauration Machine',
+      href: '/restoration-machine',
+      icon: <DashboardIcon />
+    },
+/*     {
       title: 'Users',
       href: '/users',
       icon: <PeopleIcon />
@@ -57,7 +72,8 @@ const Sidebar = props => {
       title: 'Products',
       href: '/products',
       icon: <ShoppingBasketIcon />
-    },
+    }, */
+   /*
     {
       title: 'Authentication',
       href: '/sign-in',
@@ -72,7 +88,7 @@ const Sidebar = props => {
       title: 'Icons',
       href: '/icons',
       icon: <ImageIcon />
-    },
+    }, */
     {
       title: 'Account',
       href: '/account',
@@ -103,7 +119,7 @@ const Sidebar = props => {
           className={classes.nav}
           pages={pages}
         />
-        <UpgradePlan />
+     {/*    <UpgradePlan /> */}
       </div>
     </Drawer>
   );

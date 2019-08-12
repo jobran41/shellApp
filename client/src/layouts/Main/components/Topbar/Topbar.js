@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink,withRouter } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
@@ -22,11 +22,15 @@ const useStyles = makeStyles(theme => ({
 
 const Topbar = props => {
   const { className, onSidebarOpen, ...rest } = props;
-
   const classes = useStyles();
 
   const [notifications] = useState([]);
 
+  const logout = () => {
+		localStorage.clear();
+		props.history.push("/");
+  };
+  
   return (
     <AppBar
       {...rest}
@@ -34,10 +38,14 @@ const Topbar = props => {
     >
       <Toolbar>
         <RouterLink to="/">
-          <img
+          {/* <img
             alt="Logo"
             src="/images/logos/logo--white.svg"
-          />
+          /> */}
+          <div style={{
+                color:"#fff",
+                fontWeight: "bold"
+          }}> Cloud Template </div>
         </RouterLink>
         <div className={classes.flexGrow} />
         <Hidden mdDown>
@@ -53,6 +61,7 @@ const Topbar = props => {
           <IconButton
             className={classes.signOutButton}
             color="inherit"
+            onClick={logout}
           >
             <InputIcon />
           </IconButton>
@@ -75,4 +84,4 @@ Topbar.propTypes = {
   onSidebarOpen: PropTypes.func
 };
 
-export default Topbar;
+export default withRouter(Topbar);

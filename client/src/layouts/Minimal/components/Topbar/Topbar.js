@@ -25,10 +25,10 @@ const Topbar = props => {
     >
       <Toolbar>
         <RouterLink to="/">
-          <img
-            alt="Logo"
-            src="/images/logos/logo--white.svg"
-          />
+        <div style={{
+            color:"#fff",
+            fontWeight: "bold"
+          }}> Cloud Template </div>
         </RouterLink>
       </Toolbar>
     </AppBar>

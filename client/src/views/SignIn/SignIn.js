@@ -13,7 +13,8 @@ import {
 } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
-import { Facebook as FacebookIcon, Google as GoogleIcon } from 'icons';
+import { loginUser } from "../../modules/authentication";
+
 
 const schema = {
   email: {
@@ -77,6 +78,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column'
   },
   contentHeader: {
+    visibility:"hidden",
     display: 'flex',
     alignItems: 'center',
     paddingTop: theme.spacing(5),
@@ -90,6 +92,7 @@ const useStyles = makeStyles(theme => ({
   contentBody: {
     flexGrow: 1,
     display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
     [theme.breakpoints.down('md')]: {
       justifyContent: 'center'
@@ -172,7 +175,12 @@ const SignIn = props => {
 
   const handleSignIn = event => {
     event.preventDefault();
-    history.push('/');
+    const user = {
+			username: formState.values.email,
+			password: formState.values.password
+    };
+		loginUser(user, history);
+   // history.push('/');
   };
 
   const hasError = field =>
@@ -184,7 +192,8 @@ const SignIn = props => {
         className={classes.grid}
         container
       >
-        <Grid
+
+        {/* <Grid
           className={classes.quoteContainer}
           item
           lg={5}
@@ -214,11 +223,11 @@ const SignIn = props => {
               </div>
             </div>
           </div>
-        </Grid>
+        </Grid> */}
         <Grid
           className={classes.content}
           item
-          lg={7}
+          lg={12}
           xs={12}
         >
           <div className={classes.content}>
@@ -238,13 +247,14 @@ const SignIn = props => {
                 >
                   Sign in
                 </Typography>
+                {/*  
                 <Typography
                   color="textSecondary"
                   gutterBottom
                 >
                   Sign in with social media
                 </Typography>
-                <Grid
+               <Grid
                   className={classes.socialButtons}
                   container
                   spacing={2}
@@ -278,7 +288,7 @@ const SignIn = props => {
                   variant="body1"
                 >
                   or login with email address
-                </Typography>
+                </Typography> */}
                 <TextField
                   className={classes.textField}
                   error={hasError('email')}

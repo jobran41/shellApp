@@ -1,5 +1,6 @@
 import React from 'react';
-import { Switch, Redirect } from 'react-router-dom';
+import { Switch, Redirect,withRouter ,Route} from 'react-router-dom';
+
 
 import { RouteWithLayout } from './components';
 import { Main as MainLayout, Minimal as MinimalLayout } from './layouts';
@@ -14,24 +15,46 @@ import {
   Settings as SettingsView,
   SignUp as SignUpView,
   SignIn as SignInView,
-  NotFound as NotFoundView
+  NotFound as NotFoundView,
+  CreateMachine as CreateMachineView,
+  BackupMachine as BackupMachineView,
+  RestaurationMachine as RestaurationMachineView,
 } from './views';
 
+const authService = {
+	isAuthenticated() {
+		const tok = localStorage ? localStorage : null;
+		if (tok.length !== 0) {
+			return true;
+		}
+		return false;
+	}
+};
+
 const Routes = () => {
+
   return (
     <Switch>
       <Redirect
         exact
         from="/"
-        to="/dashboard"
+        to="/sign-in"
       />
-      <RouteWithLayout
+{/*       <RouteWithLayout
         component={DashboardView}
         exact
         layout={MainLayout}
         path="/dashboard"
-      />
-      <RouteWithLayout
+      /> */}
+      <PrivateRoute         
+      component={DashboardView}
+        exact
+        layout={MainLayout}
+        path="/dashboard"
+        />
+
+
+{/*       <RouteWithLayout
         component={UserListView}
         exact
         layout={MainLayout}
@@ -54,7 +77,27 @@ const Routes = () => {
         exact
         layout={MainLayout}
         path="/icons"
+      /> */}
+            <RouteWithLayout
+        component={CreateMachineView}
+        exact
+        layout={MainLayout}
+        path="/create-machine"
       />
+            <RouteWithLayout
+        component={BackupMachineView}
+        exact
+        layout={MainLayout}
+        path="/backup-machine"
+      />
+            <RouteWithLayout
+        component={RestaurationMachineView}
+        exact
+        layout={MainLayout}
+        path="/restoration-machine"
+      />
+
+
       <RouteWithLayout
         component={AccountView}
         exact
@@ -89,5 +132,23 @@ const Routes = () => {
     </Switch>
   );
 };
-
-export default Routes;
+const PrivateRoute = ({layout: Layout, component: Component, ...rest }) => (
+	<Route
+		{...rest}
+		render={props =>
+			authService.isAuthenticated() ? (
+        <Layout>
+            <Component {...props} />
+        </Layout>
+				
+			) : (
+				<Redirect
+					to={{
+						pathname: "/",
+						state: { target: props.location }
+					}}
+				/>
+			)}
+	/>
+);
+export default withRouter(Routes);
