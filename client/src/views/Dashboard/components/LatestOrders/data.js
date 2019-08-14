@@ -6,7 +6,7 @@ export default [
     ref: 'CDD1049',
     amount: 30.5,
     customer: {
-      name: 'Ekaterina Tankova'
+      name: '192.33.43.1'
     },
     createdAt: 1555016400000,
     status: 'pending'
@@ -16,7 +16,7 @@ export default [
     ref: 'CDD1048',
     amount: 25.1,
     customer: {
-      name: 'Cao Yu'
+      name: '192.33.43.3'
     },
     createdAt: 1555016400000,
     status: 'delivered'
@@ -26,7 +26,7 @@ export default [
     ref: 'CDD1047',
     amount: 10.99,
     customer: {
-      name: 'Alexa Richardson'
+      name: '192.33.43.4'
     },
     createdAt: 1554930000000,
     status: 'refunded'
@@ -36,29 +36,9 @@ export default [
     ref: 'CDD1046',
     amount: 96.43,
     customer: {
-      name: 'Anje Keizer'
+      name: '192.33.43.7'
     },
     createdAt: 1554757200000,
     status: 'pending'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1045',
-    amount: 32.54,
-    customer: {
-      name: 'Clarke Gillebert'
-    },
-    createdAt: 1554670800000,
-    status: 'delivered'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1044',
-    amount: 16.76,
-    customer: {
-      name: 'Adam Denisov'
-    },
-    createdAt: 1554670800000,
-    status: 'delivered'
   }
 ];

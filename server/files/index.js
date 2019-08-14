@@ -1,9 +1,10 @@
 const { exec } = require("child_process");
 const fs = require("fs");
+const db = require("_helpers/db");
 
+const FileCloud = db.FileCloud;
 
-
-const  createFile=(req, res, next) => {
+const createFile = (req, res, next) => {
   exec(`cd .. && touch main.tf`, (error, stdout, stderr) => {
     fs.writeFile(`../main.tf`, "create your content", function(err) {
       if (err) {
@@ -17,7 +18,7 @@ const  createFile=(req, res, next) => {
     }
   });
   res.send("file created");
-}
+};
 /* app.get("/createFile",jwt, function(req, res) {
   exec(`touch main.tf`, (error, stdout, stderr) => {
     fs.writeFile(`main.tf`, "create your content", function(err) {
@@ -33,8 +34,10 @@ const  createFile=(req, res, next) => {
   });
   res.send("file created");
 }); */
-const writeFile=(req, res)=> {
-  const { user, password } = req.body;
+
+const writeFile = (req, res) => {
+  const { user, password, nameMachine } = req.body;
+  let erroName=false
   const content = `
         provider "vsphere" {
             user           = "${user}"
@@ -133,12 +136,23 @@ const writeFile=(req, res)=> {
           }  
           }          
           `;
-  fs.writeFile("../main.tf", content, function(err) {
+  fs.writeFile("../main.tf", content, async function(err) {
     if (err) {
       return console.log(err);
     }
-    console.log("The file was saved!");
-/*     exec(`git status && git add . && git commit -m "add file"`, (error, stdout, stderr) => {
+    const file = new FileCloud(req.body);
+
+    // validate
+    if (await FileCloud.findOne({ nameMachine: req.body.nameMachine })) {
+      erroName=true
+      throw 'nameMachine "' + nameMachine + '" is already taken';
+ 
+    }
+
+    // save File
+    await file.save();
+
+    /*     exec(`git status && git add . && git commit -m "add file"`, (error, stdout, stderr) => {
         console.log(stdout)
         if (error) {
           console.error(`exec error: ${error}`);
@@ -146,9 +160,12 @@ const writeFile=(req, res)=> {
         }
       }); */
   });
+  console.log(erroName)
+  if(erroName){
+    res.send('nameMachine "' + nameMachine + '" is already taken');
+  }else{
+    res.send('The file was saved!');
+  }
+};
 
-  res.send("The file was saved!");
-}
-
-
-module.exports = {createFile,writeFile};
+module.exports = { createFile, writeFile };

@@ -22,14 +22,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Profile = props => {
-  const { className, ...rest } = props;
+  const { details:{firstName,lastName,username}, className, ...rest } = props;
 
   const classes = useStyles();
 
   const user = {
-    name: 'Shen Zhi',
-    avatar: '/images/avatars/avatar_11.png',
-    bio: 'Brain Director'
+    name: `${firstName} ${lastName}`,
+    avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf_Bf0-x44hsGqqcQwrTcNeLUSnYjlDuoql-hQHydDdBwxeCT2',
+    bio: username
   };
 
   return (

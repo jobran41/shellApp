@@ -24,7 +24,6 @@ const useStyles = makeStyles(theme => ({
 
 const Main = props => {
   const { children } = props;
-
   const classes = useStyles();
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
@@ -55,6 +54,7 @@ const Main = props => {
         onClose={handleSidebarClose}
         open={shouldOpenSidebar}
         variant={isDesktop ? 'persistent' : 'temporary'}
+        details={props.details || {}}
       />
       <main className={classes.content}>
         {children}

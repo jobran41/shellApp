@@ -1,9 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
+import Done from '@material-ui/icons/Done';
+import Close from '@material-ui/icons/Close';
+import Info from '@material-ui/icons/Info';
+
 
 import {
-  Budget,
+  Alert,
   TotalUsers,
   TasksProgress,
   TotalProfit,
@@ -35,7 +39,16 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <Budget />
+          <Alert icon={<Close  />} status={"Echec"} count={0} />
+       </Grid>
+        <Grid
+          item
+          lg={4}
+          sm={6}
+          xl={3}
+          xs={12}
+        >
+        <Alert icon={<Done  />} status={"Success"} count={2} />
         </Grid>
         <Grid
           item
@@ -44,7 +57,7 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <TotalUsers />
+        <Alert icon={<Info  />} status={"dange"} count={2} />
         </Grid>
         <Grid
           item
@@ -53,7 +66,16 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <TasksProgress />
+          <TasksProgress value={75} name="Capaciter Esxi" />
+        </Grid>
+        <Grid
+          item
+          lg={4}
+          sm={6}
+          xl={3}
+          xs={12}
+        >
+          <TasksProgress value={75} name="Capaciter Datasource" />
         </Grid>
         <Grid
           item

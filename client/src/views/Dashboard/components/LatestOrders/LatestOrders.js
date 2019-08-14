@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { withRouter } from "react-router-dom";
 import clsx from 'clsx';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -46,17 +47,19 @@ const useStyles = makeStyles(theme => ({
 
 const statusColors = {
   delivered: 'success',
-  pending: 'info',
+  pending: 'warning',
   refunded: 'danger'
 };
 
 const LatestOrders = props => {
-  const { className, ...rest } = props;
+  const { history,className, ...rest } = props;
 
   const classes = useStyles();
 
   const [orders] = useState(mockData);
-
+const newEntry=()=>{
+  history.push("/create-machine")
+}
   return (
     <Card
       {...rest}
@@ -65,6 +68,7 @@ const LatestOrders = props => {
       <CardHeader
         action={
           <Button
+            onClick={newEntry}
             color="primary"
             size="small"
             variant="outlined"
@@ -81,8 +85,8 @@ const LatestOrders = props => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Order Ref</TableCell>
-                  <TableCell>Customer</TableCell>
+                  <TableCell>Name Machine</TableCell>
+                  <TableCell>Address Ip</TableCell>
                   <TableCell sortDirection="desc">
                     <Tooltip
                       enterDelay={300}
@@ -117,7 +121,7 @@ const LatestOrders = props => {
                           color={statusColors[order.status]}
                           size="sm"
                         />
-                        {order.status}
+                        {/* order.status */}
                       </div>
                     </TableCell>
                   </TableRow>
@@ -145,4 +149,4 @@ LatestOrders.propTypes = {
   className: PropTypes.string
 };
 
-export default LatestOrders;
+export default withRouter(LatestOrders);

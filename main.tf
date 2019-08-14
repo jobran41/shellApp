@@ -1,6 +1,6 @@
 
         provider "vsphere" {
-            user           = "joeeeee"
+            user           = "joee23"
             password       = "fedf"
             vsphere_server = "vc-vstack-002-ctt.tn.cloud-temple.lan"
           

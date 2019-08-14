@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const TasksProgress = props => {
-  const { className, ...rest } = props;
+  const { value, name,className, ...rest } = props;
 
   const classes = useStyles();
 
@@ -60,15 +60,15 @@ const TasksProgress = props => {
               gutterBottom
               variant="body2"
             >
-              TASKS PROGRESS
+              {name}
             </Typography>
-            <Typography variant="h3">75.5%</Typography>
+            <Typography variant="h3">{value}%</Typography>
           </Grid>
-          <Grid item>
+{/*           <Grid item>
             <Avatar className={classes.avatar}>
               <InsertChartIcon className={classes.icon} />
             </Avatar>
-          </Grid>
+          </Grid> */}
         </Grid>
         <LinearProgress
           className={classes.progress}

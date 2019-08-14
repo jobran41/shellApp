@@ -14,7 +14,12 @@ export const loginUser = (user, history)  => {
 		.post("/authenticate", user)
 		.then(res => {
             console.log(res,"res")
-			res.data && localStorage.setItem("token", res.data.token);
+			if(res.data){
+			 localStorage.setItem("token", res.data.token);
+			 localStorage.setItem("firstName", res.data.firstName);
+			 localStorage.setItem("lastName", res.data.lastName);
+			 localStorage.setItem("username", res.data.username);
+			}
 			history.push("/dashboard");
 			return res;
 		})
