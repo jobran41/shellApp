@@ -10,6 +10,8 @@ import {
   Typography
 } from "@material-ui/core";
 import validate from "validate.js";
+import axios from 'axios';
+
 
 const schema = {
   nameMachine: {
@@ -103,6 +105,14 @@ const CreateMachine = props => {
     }));
   }, [formState.values]);
 
+  async function fetchMyAPI() {
+    let response =await  axios('/createFile', { headers: { Authorization: `Bearer ${localStorage.token}` } })
+  }
+
+  useEffect(() => {
+    fetchMyAPI();
+  }, []);
+
   const handleChange = event => {
     event.persist();
 
@@ -121,7 +131,18 @@ const CreateMachine = props => {
       }
     }));
   };
-
+const createFile = async ()=>{
+  await  axios(
+    {
+      method: 'post',
+      url: '/writeFile',
+      data: {
+        user: 'Fred',
+        password: 'Flintstone',
+        ...formState.values
+      }, 
+      headers: { Authorization: `Bearer ${localStorage.token}` } })
+}
   return (
     <div className="createMachine">
       <div
@@ -304,6 +325,7 @@ const CreateMachine = props => {
         size="large"
         type="submit"
         variant="contained"
+        onClick={createFile}
       >
         Create Machine
       </Button>

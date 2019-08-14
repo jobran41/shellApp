@@ -8,6 +8,7 @@ const schema = new Schema({
     ram: { type: String, required: true },
     disque: { type: String, required: true },
     adressIp: { type: String, required: true },
+    status: { type: String, default: "success" },
     netMask: { type: String },
     getWay: { type: String },
     dns: { type: String },

@@ -36,7 +36,7 @@ const createFile = (req, res, next) => {
 }); */
 
 const writeFile = (req, res) => {
-  const { user, password, nameMachine } = req.body;
+  const { user, password, nameMachine ,os,cpu,ram} = req.body;
   let erroName=false
   const content = `
         provider "vsphere" {
@@ -100,8 +100,8 @@ const writeFile = (req, res) => {
               path         = "SW_DVD9_Win_Svr_STD_Core_and_DataCtr_Core_2016_64Bit_French_-2_MLF_X21-22829.ISO"
             }*/
           
-            num_cpus = 2
-            memory   = 1024
+            num_cpus = 2 here
+            memory   = 1024 here
             guest_id = "{data.vsphere_virtual_machine.template.guest_id}"
             network_interface {
               network_id = "{data.vsphere_network.network.id}"
@@ -121,17 +121,17 @@ const writeFile = (req, res) => {
           
                customize {
                 windows_options {
-                  computer_name  = "terraform-test"
+                  computer_name  = "terraform-test" here
                   workgroup      = "test"
                   admin_password = "VMw4re"
                 }
           
                 network_interface {
-                  ipv4_address = "10.5.8.4"
-                  ipv4_netmask = 24
+                  ipv4_address = "10.5.8.4" here
+                  ipv4_netmask = 24 here
                 }
           
-                ipv4_gateway = "10.5.8.254"
+                ipv4_gateway = "10.5.8.254" here
           }
           }  
           }          
@@ -152,15 +152,16 @@ const writeFile = (req, res) => {
     // save File
     await file.save();
 
-    /*     exec(`git status && git add . && git commit -m "add file"`, (error, stdout, stderr) => {
+    /* 
+    exec(`terraform.exe && terraform init && terraform plan && terraform apply`, (error, stdout, stderr) => {
         console.log(stdout)
         if (error) {
           console.error(`exec error: ${error}`);
           return;
         }
-      }); */
+      }); 
+    */
   });
-  console.log(erroName)
   if(erroName){
     res.send('nameMachine "' + nameMachine + '" is already taken');
   }else{
@@ -168,4 +169,13 @@ const writeFile = (req, res) => {
   }
 };
 
-module.exports = { createFile, writeFile };
+const  getAllFiles = async (req, res) => {
+  console.log("jobran",req);
+
+  const data = await FileCloud.find();
+  res.send(data)
+
+
+}
+
+module.exports = { createFile, writeFile ,getAllFiles};

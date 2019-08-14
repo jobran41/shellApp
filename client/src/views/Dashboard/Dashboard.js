@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { makeStyles } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
 import Done from '@material-ui/icons/Done';
@@ -25,6 +26,16 @@ const useStyles = makeStyles(theme => ({
 
 const Dashboard = () => {
   const classes = useStyles();
+  const [data, setData] = useState({ hits: [] });
+
+  async function fetchMyAPI() {
+    let response =await  axios('/files', { headers: { Authorization: `Bearer ${localStorage.token}` } })
+    setData(response.data)
+  }
+
+  useEffect(() => {
+    fetchMyAPI();
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -84,7 +95,7 @@ const Dashboard = () => {
           xl={9}
           xs={12}
         >
-          <LatestOrders />
+         {data.length>0 && <LatestOrders orders={data} />}
         </Grid>
       </Grid>
     </div>

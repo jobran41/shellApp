@@ -22,7 +22,7 @@ import {
 } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 
-import mockData from './data';
+//import mockData from './data';
 import { StatusBullet } from 'components';
 
 const useStyles = makeStyles(theme => ({
@@ -52,11 +52,11 @@ const statusColors = {
 };
 
 const LatestOrders = props => {
-  const { history,className, ...rest } = props;
+  const {orders, history,className, ...rest } = props;
 
   const classes = useStyles();
 
-  const [orders] = useState(mockData);
+  //const [orders] = useState(mockData);
 const newEntry=()=>{
   history.push("/create-machine")
 }
@@ -109,16 +109,16 @@ const newEntry=()=>{
                     hover
                     key={order.id}
                   >
-                    <TableCell>{order.ref}</TableCell>
-                    <TableCell>{order.customer.name}</TableCell>
+                    <TableCell>{order.adressIp}</TableCell>
+                    <TableCell>{order.nameMachine}</TableCell>
                     <TableCell>
-                      {moment(order.createdAt).format('DD/MM/YYYY')}
+                      {moment(order.createdDate).format('DD/MM/YYYY')}
                     </TableCell>
                     <TableCell>
                       <div className={classes.statusContainer}>
                         <StatusBullet
                           className={classes.status}
-                          color={statusColors[order.status]}
+                          color={order.status}
                           size="sm"
                         />
                         {/* order.status */}

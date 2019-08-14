@@ -8,6 +8,7 @@ const myRoute = (app, jwt) => {
     // app.get('/:id', authorize(), getById);       // all authenticated users
     //files
     app.get("/createFile",jwt,routesFiles.createFile)
+    app.get("/files",jwt,routesFiles.getAllFiles)
     app.post("/writeFile",jwt,routesFiles.writeFile)
 
     // routes
