@@ -69,6 +69,12 @@ const schema = {
       maximum: 32
     }
   },
+  memory: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 32
+    }
+  },
   exsiDestination: {
     presence: { allowEmpty: false, message: "is required" },
     length: {
@@ -137,8 +143,8 @@ const createFile = async ()=>{
       method: 'post',
       url: '/writeFile',
       data: {
-        user: 'Fred',
-        password: 'Flintstone',
+        user: 'ahmed',
+        password: 'dk',
         ...formState.values
       }, 
       headers: { Authorization: `Bearer ${localStorage.token}` } })
@@ -287,6 +293,19 @@ const createFile = async ()=>{
             value={formState.values.dns || ""}
             variant="outlined"
           />
+          <TextField
+            style={{
+              marginBottom: "10px"
+            }}
+            fullWidth
+            label="memory"
+            name="memory"
+            onChange={handleChange}
+            type="text"
+            value={formState.values.memory || ""}
+            variant="outlined"
+          />
+
         </div>
       </div>
       <div style={{
